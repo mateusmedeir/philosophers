@@ -1,4 +1,4 @@
-SRCS	= philo.c atoi.c
+SRCS	= philo.c load.c atoi.c
 
 CC	= cc
 FLAGS	= -Wall -Wextra -Werror

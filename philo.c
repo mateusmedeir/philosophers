@@ -1,38 +1,37 @@
 #include "philo.h"
 
-void	*ft_thread(void *arg)
+void	*ft_philo_actions(void *arg)
 {
-	printf("Thread Created\n");
+	t_philo	*philo;
+
+	philo = arg;
+	printf("Thread %d Created\n", philo->pos);
 	sleep(3);
-	printf("End Thread\n");
+	printf("End Thread %d\n", philo->pos);
 	return (arg);
 }
 
 void	ft_philo(int size)
 {
-	pthread_mutex_t	mutex;
-	pthread_t       *threads;
+	t_program	prog;
 	int		counter;
 
-	threads = malloc(sizeof(pthread_t) * size);
-	if (!threads)
-		return ;
-	pthread_mutex_init(&mutex, NULL);
-	counter = 0;
-	while (counter < size)
+	ft_load_philos(&prog, size);
+	prog.forks = 2;
+	counter = -1;
+	pthread_mutex_init(&prog.mutex, NULL);
+	while (++counter < size)
 	{
-		if (pthread_create(&threads[counter], NULL, ft_thread, NULL) != 0)
+		if (pthread_create(&prog.philos[counter].thread, NULL, ft_philo_actions, &prog.philos[counter]) != 0)
 			return ;
-		counter++;
 	}
-	counter = 0;
-	while (counter < size)
+	counter = -1;
+	while (++counter < size)
 	{
-		if (pthread_join(threads[counter], NULL) != 0)
+		if (pthread_join(prog.philos[counter].thread, NULL) != 0)
 			return ;
-		counter++;
 	}
-	pthread_mutex_destroy(&mutex);
+	pthread_mutex_destroy(&prog.mutex);
 }
 
 int	main(int argc, char *argv[])

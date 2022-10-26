@@ -6,8 +6,22 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+typedef struct	s_philo
+{
+	pthread_t	thread;
+	int		pos;
+}			t_philo;
+
+typedef struct	s_program
+{
+	pthread_mutex_t	mutex;
+	t_philo		*philos;
+	int		forks;
+}		t_program;
+
 int	ft_atoi(const char *str);
-void	*ft_thread(void *arg);
+void	ft_load_philos(t_program *prog, int size);
+void	*ft_philo_actions(void *arg);
 void	ft_philo(int size);
 
 #endif
