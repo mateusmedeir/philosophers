@@ -9,5 +9,9 @@ void	ft_load_philos(t_program *prog, int size)
 		return ;
 	counter = -1;
 	while (++counter < size)
+	{
+		prog->philos[counter].prog = prog;
 		prog->philos[counter].pos = counter;
+		prog->philos[counter].forks = 0;
+	}
 }
