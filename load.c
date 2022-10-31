@@ -1,26 +1,53 @@
 #include "philo.h"
 
-void	ft_load_philos(t_program *prog, int size)
+void	ft_philo_load(t_program *prog)
 {
 	int	counter;
 
-	prog->philos = malloc(sizeof(t_philo) * size);
+	prog->philos = malloc(sizeof(t_philo) * prog->size);
 	if (!prog->philos)
 		return ;
 	counter = -1;
-	while (++counter < size)
+	while (++counter < prog->size)
 	{
 		prog->philos[counter].prog = prog;
 		prog->philos[counter].pos = counter;
-		prog->philos[counter].forks = 0;
 		prog->philos[counter].die = 0;
 		prog->philos[counter].hungry = 0;
 	}
+	prog->start = ft_get_time();
+	prog->forks = malloc (sizeof(pthread_mutex_t) * prog->size);
+	if (!prog->forks)
+		return ;
 }
 
-void	ft_load(t_program *prog, int size)
+void	ft_philo_start(t_program *prog)
 {
-	ft_load_philos(prog, size);
-	prog->forks = size;
-	prog->start = ft_get_time();
+	int	counter;
+
+	counter = -1;
+	while (++counter < prog->size)
+		pthread_mutex_init(&prog->forks[counter], NULL);
+	counter = -1;
+	while (++counter < prog->size)
+	{
+		if (pthread_create(&prog->philos[counter].thread, NULL,
+			ft_philo_actions, &prog->philos[counter]) != 0)
+			return ;
+	}
+}
+
+void	ft_philo_end(t_program *prog)
+{
+	int     counter;
+
+	counter = -1;
+	while (++counter < prog->size)
+	{
+		if (pthread_join(prog->philos[counter].thread, NULL) != 0)
+			return ;
+	}
+	counter = -1;
+	while (++counter < prog->size)
+		pthread_mutex_destroy(&prog->forks[counter]);
 }

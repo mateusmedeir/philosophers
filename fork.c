@@ -1,39 +1,17 @@
 #include "philo.h"
 
-void	ft_get_fork(t_program *prog, t_philo *philo)
+void	ft_get_fork(t_program *prog, t_philo *philo, int pos)
 {
-	if (philo->forks >= 0 && philo->forks < 2)
+	philo->hungry = ft_get_time();
+	pthread_mutex_lock(&prog->forks[pos]);
+	philo->die += ft_get_time() - philo->hungry;
+	if (philo->die >= prog->die)
 	{
-		if (prog->forks <= 0)
-			philo->hungry = ft_get_time();
-		while (prog->forks <= 0)
-			usleep(1000);
-		if (philo->hungry > 0)
-		{
-			philo->die = ft_get_time() - philo->hungry;
-			philo->hungry = 0;
-			if (philo->die >= prog->die)
-			{
-				if (philo->forks > 0)
-				{
-					while (philo->forks > 0)
-						ft_put_fork(prog, philo);
-				}
-				ft_died(prog, philo);
-				return ;
-			}
-		}
-		printf("%lld %d has taken a fork\n", ft_get_time() - prog->start, philo->pos);
-		prog->forks--;
-		philo->forks++;
+		pthread_mutex_unlock(&prog->forks[pos]);
+		if (pos == philo->pos)
+			pthread_mutex_unlock(&prog->forks[pos - 1]);
+		ft_died(prog, philo);
+		return ;
 	}
-}
-
-void	ft_put_fork(t_program *prog, t_philo *philo)
-{
-	if (philo->forks >= 0)
-	{
-		prog->forks++;
-		philo->forks--;
-	}
+	printf("%lld %d has taken a fork\n", ft_get_time() - prog->start, philo->pos);
 }
