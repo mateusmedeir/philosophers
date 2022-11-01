@@ -1,6 +1,6 @@
 #include "philo.h"
 
-void	ft_get_fork(t_program *prog, t_philo *philo, int pos)
+int	ft_get_fork(t_program *prog, t_philo *philo, int pos)
 {
 	philo->hungry = ft_get_time();
 	pthread_mutex_lock(&prog->forks[pos]);
@@ -8,10 +8,12 @@ void	ft_get_fork(t_program *prog, t_philo *philo, int pos)
 	if (philo->die >= prog->die)
 	{
 		pthread_mutex_unlock(&prog->forks[pos]);
-		if (pos == philo->pos)
-			pthread_mutex_unlock(&prog->forks[pos - 1]);
-		ft_died(prog, philo);
-		return ;
+		if (pos + 1 == philo->pos)
+			pthread_mutex_unlock(&prog->forks[pos + 1]);
+		else if (philo->pos == prog->size && pos == 0)
+			pthread_mutex_unlock(&prog->forks[0]);
+		return (ft_died(prog, philo));
 	}
-	printf("%lld %d has taken a fork\n", ft_get_time() - prog->start, philo->pos);
+	ft_philo_log(prog, philo, "has taken a fork");
+	return (1);
 }

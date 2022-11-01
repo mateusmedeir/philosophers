@@ -9,13 +9,11 @@ void	*ft_philo_actions(void *arg)
 	prog = philo->prog;
 	while (1)
 	{
-		ft_eat(prog, philo);
-		if (philo->die >= prog->die)
-			exit(EXIT_FAILURE);
-		ft_sleep(prog, philo);
-		ft_think(prog, philo);
+		if (!ft_philo_log(prog, philo, " is thinking")
+			|| !ft_eat(prog, philo) || !ft_sleep(prog, philo))
+			break ;
 	}
-	return (arg);
+	return (NULL);
 }
 
 void	ft_philo(t_program *prog)

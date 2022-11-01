@@ -11,11 +11,12 @@ void	ft_philo_load(t_program *prog)
 	while (++counter < prog->size)
 	{
 		prog->philos[counter].prog = prog;
-		prog->philos[counter].pos = counter;
+		prog->philos[counter].pos = counter + 1;
 		prog->philos[counter].die = 0;
 		prog->philos[counter].hungry = 0;
 	}
 	prog->start = ft_get_time();
+	prog->exit = 0;
 	prog->forks = malloc (sizeof(pthread_mutex_t) * prog->size);
 	if (!prog->forks)
 		return ;
@@ -28,6 +29,7 @@ void	ft_philo_start(t_program *prog)
 	counter = -1;
 	while (++counter < prog->size)
 		pthread_mutex_init(&prog->forks[counter], NULL);
+	pthread_mutex_init(&prog->mutex, NULL);
 	counter = -1;
 	while (++counter < prog->size)
 	{
@@ -50,4 +52,5 @@ void	ft_philo_end(t_program *prog)
 	counter = -1;
 	while (++counter < prog->size)
 		pthread_mutex_destroy(&prog->forks[counter]);
+	pthread_mutex_destroy(&prog->mutex);
 }
