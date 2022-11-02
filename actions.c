@@ -23,8 +23,16 @@ int	ft_eat(t_program *prog, t_philo *philo)
 		right = 0;
 	else
 		right = philo->pos;
-	if (!ft_get_fork(prog, philo, right) || !ft_get_fork(prog, philo, left))
-		return (0);
+	if (prog->size == 1)
+	{
+		if (!ft_get_fork(prog, philo, left))
+			return (0);
+	}
+	else
+	{
+		if (!ft_get_fork(prog, philo, left) || !ft_get_fork(prog, philo, right))
+			return (0);
+	}
 	if (!ft_philo_log(prog, philo, "is eating"))
 	usleep(prog->eat * 1000);
 	philo->last = ft_get_time();

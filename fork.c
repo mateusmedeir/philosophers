@@ -7,10 +7,10 @@ int	ft_get_fork(t_program *prog, t_philo *philo, int pos)
 	if (philo->die >= prog->die)
 	{
 		pthread_mutex_unlock(&prog->forks[pos]);
-		if (pos + 1 == philo->pos)
-			pthread_mutex_unlock(&prog->forks[pos + 1]);
+		if (pos == philo->pos)
+			pthread_mutex_unlock(&prog->forks[pos - 1]);
 		else if (philo->pos == prog->size && pos == 0)
-			pthread_mutex_unlock(&prog->forks[0]);
+			pthread_mutex_unlock(&prog->forks[philo->pos - 1]);
 		pthread_mutex_lock(&prog->mutex);
 		if (prog->exit == 1)
 		{
