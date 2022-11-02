@@ -8,14 +8,14 @@ void	ft_philo_load(t_program *prog)
 	if (!prog->philos)
 		return ;
 	counter = -1;
+	prog->start = ft_get_time();
 	while (++counter < prog->size)
 	{
 		prog->philos[counter].prog = prog;
 		prog->philos[counter].pos = counter + 1;
 		prog->philos[counter].die = 0;
-		prog->philos[counter].hungry = 0;
+		prog->philos[counter].last = prog->start;
 	}
-	prog->start = ft_get_time();
 	prog->exit = 0;
 	prog->forks = malloc (sizeof(pthread_mutex_t) * prog->size);
 	if (!prog->forks)

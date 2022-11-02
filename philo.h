@@ -12,7 +12,7 @@ typedef struct	s_philo
 	pthread_t	thread;
 	int		pos;
 	int		die;
-	long long	hungry;
+	long long	last;
 	void		*prog;
 }			t_philo;
 
