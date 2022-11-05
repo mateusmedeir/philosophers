@@ -3,8 +3,8 @@
 int	ft_get_fork(t_program *prog, t_philo *philo, int pos)
 {
 	pthread_mutex_lock(&prog->forks[pos]);
-	philo->die += ft_get_time() - philo->last;
-	if (philo->die >= prog->die)
+	philo->die = ft_get_time() - philo->last;
+	if (philo->die > prog->die)
 	{
 		pthread_mutex_unlock(&prog->forks[pos]);
 		if (pos == philo->pos)

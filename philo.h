@@ -12,6 +12,7 @@ typedef struct	s_philo
 	pthread_t	thread;
 	int		pos;
 	int		die;
+	int		times_eat;
 	long long	last;
 	void		*prog;
 }			t_philo;
@@ -24,6 +25,7 @@ typedef struct	s_program
 	int		exit;
 	int		size;
 	int		eat;
+	int		must_eat;
 	int		sleep;
 	int		die;
 	long long	start;

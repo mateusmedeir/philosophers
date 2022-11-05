@@ -15,6 +15,7 @@ void	ft_philo_load(t_program *prog)
 		prog->philos[counter].pos = counter + 1;
 		prog->philos[counter].die = 0;
 		prog->philos[counter].last = prog->start;
+		prog->philos[counter].times_eat = 0;
 	}
 	prog->exit = 0;
 	prog->forks = malloc (sizeof(pthread_mutex_t) * prog->size);

@@ -34,10 +34,17 @@ int	ft_eat(t_program *prog, t_philo *philo)
 			return (0);
 	}
 	if (!ft_philo_log(prog, philo, "is eating"))
-	usleep(prog->eat * 1000);
+		return (0);
 	philo->last = ft_get_time();
+	philo->die = 0;
+	usleep(prog->eat * 1000);
 	pthread_mutex_unlock(&prog->forks[right]);
 	pthread_mutex_unlock(&prog->forks[left]);
+	if (prog->must_eat > 0)
+	{
+		if (++philo->times_eat >= prog->must_eat)
+			return (0);
+	}
 	return (1);
 }
 

@@ -27,12 +27,16 @@ int	main(int argc, char *argv[])
 {
 	t_program       prog;
 
-	if (argc == 5)
+	if (argc == 5 || argc == 6)
 	{
 		prog.size = ft_atoi(argv[1]);
 		prog.die = ft_atoi(argv[2]);
 		prog.eat = ft_atoi(argv[3]);
 		prog.sleep = ft_atoi(argv[4]);
+		if (argc == 6)
+			prog.must_eat = ft_atoi(argv[5]);
+		else
+			prog.must_eat = -1;
 		ft_philo(&prog);
 	}
 }
