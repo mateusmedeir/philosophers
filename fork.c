@@ -1,6 +1,5 @@
 #include "philo.h"
 
-
 int	ft_put_forks(t_program *prog, t_philo *philo, int *pos)
 {
 	pthread_mutex_lock(&prog->forks_mutex);
@@ -27,7 +26,7 @@ int	ft_check_died(t_program *prog, t_philo *philo, int *pos)
 	return (1);
 }
 
-int     ft_get_forks(t_program *prog, t_philo *philo, int *pos)
+int	ft_get_forks(t_program *prog, t_philo *philo, int *pos)
 {
 	while (philo->forks < 2 && ft_check_died(prog, philo, pos))
 	{

@@ -36,14 +36,14 @@ void	ft_philo_start(t_program *prog)
 	while (++counter < prog->size)
 	{
 		if (pthread_create(&prog->philos[counter].thread, NULL,
-			ft_philo_actions, &prog->philos[counter]) != 0)
+				ft_philo_actions, &prog->philos[counter]) != 0)
 			return ;
 	}
 }
 
 void	ft_philo_end(t_program *prog)
 {
-	int     counter;
+	int	counter;
 
 	counter = -1;
 	while (++counter < prog->size)

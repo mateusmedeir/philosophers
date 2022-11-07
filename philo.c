@@ -25,7 +25,7 @@ void	ft_philo(t_program *prog)
 
 int	main(int argc, char *argv[])
 {
-	t_program       prog;
+	t_program	prog;
 
 	if (argc == 5 || argc == 6)
 	{

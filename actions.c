@@ -25,20 +25,16 @@ int	ft_eat(t_program *prog, t_philo *philo)
 	else
 		pos[1] = philo->pos;
 	if (!ft_get_forks(prog, philo, pos))
-			return (0);
+		return (0);
 	philo->last = ft_get_time();
 	philo->die = 0;
 	if (!ft_philo_log(prog, philo, "is eating", prog->eat))
 		return (ft_put_forks(prog, philo, pos));
 	ft_put_forks(prog, philo, pos);
 	if (prog->must_eat > 0)
-	{
-		if (++philo->times_eat >= prog->must_eat)
-			return (0);
-	}
+		return (++philo->times_eat >= prog->must_eat);
 	return (1);
 }
-
 
 int	ft_died(t_program *prog, t_philo *philo)
 {

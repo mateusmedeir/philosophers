@@ -1,36 +1,36 @@
 #ifndef PHILO_H
-#define	PHILO_H
+# define PHILO_H
 
-#include <stdio.h>
-#include <pthread.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <sys/time.h>
+# include <stdio.h>
+# include <pthread.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <sys/time.h>
 
-typedef struct	s_philo
+typedef struct s_philo
 {
 	pthread_t	thread;
-	int		forks;
-	int		pos;
-	int		die;
-	int		times_eat;
+	int			forks;
+	int			pos;
+	int			die;
+	int			times_eat;
 	long long	last;
 	void		*prog;
 }			t_philo;
 
-typedef struct	s_program
+typedef struct s_program
 {
 	pthread_mutex_t	mutex;
-	pthread_mutex_t forks_mutex;
-	t_philo		*philos;
-	int		*forks;
-	int		exit;
-	int		size;
-	int		eat;
-	int		must_eat;
-	int		sleep;
-	int		die;
-	long long	start;
+	pthread_mutex_t	forks_mutex;
+	t_philo			*philos;
+	int				*forks;
+	int				exit;
+	int				size;
+	int				eat;
+	int				must_eat;
+	int				sleep;
+	int				die;
+	long long		start;
 }			t_program;
 
 int		ft_atoi(const char *str);
