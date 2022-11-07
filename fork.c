@@ -1,16 +1,21 @@
 #include "philo.h"
 
-int	ft_get_fork(t_program *prog, t_philo *philo, int pos)
+
+int	ft_put_forks(t_program *prog, t_philo *philo, int *pos)
 {
-	pthread_mutex_lock(&prog->forks[pos]);
+	pthread_mutex_lock(&prog->forks_mutex);
+	while (philo->forks > 0)
+		prog->forks[pos[--philo->forks]] = 1;
+	pthread_mutex_unlock(&prog->forks_mutex);
+	return (0);
+}
+
+int	ft_check_died(t_program *prog, t_philo *philo, int *pos)
+{
 	philo->die = ft_get_time() - philo->last;
 	if (philo->die > prog->die)
 	{
-		pthread_mutex_unlock(&prog->forks[pos]);
-		if (pos == philo->pos)
-			pthread_mutex_unlock(&prog->forks[pos - 1]);
-		else if (philo->pos == prog->size && pos == 0)
-			pthread_mutex_unlock(&prog->forks[philo->pos - 1]);
+		ft_put_forks(prog, philo, pos);
 		pthread_mutex_lock(&prog->mutex);
 		if (prog->exit == 1)
 		{
@@ -19,6 +24,20 @@ int	ft_get_fork(t_program *prog, t_philo *philo, int pos)
 		}
 		return (ft_died(prog, philo));
 	}
-	ft_philo_log(prog, philo, "has taken a fork");
+	return (1);
+}
+
+int     ft_get_forks(t_program *prog, t_philo *philo, int *pos)
+{
+	while (philo->forks < 2 && ft_check_died(prog, philo, pos))
+	{
+		pthread_mutex_lock(&prog->forks_mutex);
+		if (prog->forks[pos[philo->forks]] == 1)
+			prog->forks[pos[philo->forks++]] = 0;
+		pthread_mutex_unlock(&prog->forks_mutex);
+	}
+	if (philo->die > prog->die)
+		return (0);
+	ft_philo_log(prog, philo, "has taken a fork", 0);
 	return (1);
 }

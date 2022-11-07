@@ -9,8 +9,8 @@ void	*ft_philo_actions(void *arg)
 	prog = philo->prog;
 	while (1)
 	{
-		if (!ft_philo_log(prog, philo, "is thinking")
-			|| !ft_eat(prog, philo) || !ft_sleep(prog, philo))
+		if (!ft_philo_log(prog, philo, "is thinking", 0) || !ft_eat(prog, philo)
+			|| !ft_philo_log(prog, philo, "is sleeping", prog->sleep))
 			break ;
 	}
 	return (NULL);

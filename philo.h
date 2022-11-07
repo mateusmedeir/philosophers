@@ -10,6 +10,7 @@
 typedef struct	s_philo
 {
 	pthread_t	thread;
+	int		forks;
 	int		pos;
 	int		die;
 	int		times_eat;
@@ -20,8 +21,9 @@ typedef struct	s_philo
 typedef struct	s_program
 {
 	pthread_mutex_t	mutex;
+	pthread_mutex_t forks_mutex;
 	t_philo		*philos;
-	pthread_mutex_t	*forks;
+	int		*forks;
 	int		exit;
 	int		size;
 	int		eat;
@@ -37,10 +39,11 @@ void		ft_philo_start(t_program *prog);
 void		ft_philo_end(t_program *prog);
 void		*ft_philo_actions(void *arg);
 void		ft_philo(t_program *prog);
-int		ft_get_fork(t_program *prog, t_philo *philo, int pos);
-int		ft_philo_log(t_program *prog,t_philo *philo, char *str);
+int		ft_put_forks(t_program *prog, t_philo *philo, int *pos);
+int     	ft_check_died(t_program *prog, t_philo *philo, int *pos);
+int		ft_get_forks(t_program *prog, t_philo *philo, int *pos);
+int		ft_philo_log(t_program *prog,t_philo *philo, char *str, int sleep);
 int		ft_eat(t_program *prog,t_philo *philo);
-int		ft_sleep(t_program *prog, t_philo *philo);
 int		ft_died(t_program *prog, t_philo *philo);
 long long	ft_get_time(void);
 
