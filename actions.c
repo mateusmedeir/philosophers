@@ -18,12 +18,19 @@ int	ft_philo_log(t_program *prog, t_philo *philo, char *str, int sleep)
 int	ft_eat(t_program *prog, t_philo *philo)
 {
 	int	pos[2];
+	int	swap;;
 
 	pos[0] = philo->pos - 1;
 	if (philo->pos == prog->size)
 		pos[1] = 0;
 	else
 		pos[1] = philo->pos;
+	if (philo->pos % 2 != 0)
+	{
+		swap = pos[0];
+		pos[0] = pos[1];
+		pos[1] = swap;
+	}
 	if (!ft_get_forks(prog, philo, pos))
 		return (0);
 	philo->last = ft_get_time();
@@ -32,7 +39,7 @@ int	ft_eat(t_program *prog, t_philo *philo)
 		return (ft_put_forks(prog, philo, pos));
 	ft_put_forks(prog, philo, pos);
 	if (prog->must_eat > 0)
-		return (++philo->times_eat >= prog->must_eat);
+		return (++philo->times_eat < prog->must_eat);
 	return (1);
 }
 

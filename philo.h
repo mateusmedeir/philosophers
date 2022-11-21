@@ -21,7 +21,7 @@ typedef struct s_philo
 typedef struct s_program
 {
 	pthread_mutex_t	mutex;
-	pthread_mutex_t	forks_mutex;
+	pthread_mutex_t	*mutex_forks;
 	t_philo			*philos;
 	int				*forks;
 	int				exit;
