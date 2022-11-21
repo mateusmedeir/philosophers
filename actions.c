@@ -25,7 +25,7 @@ int	ft_eat(t_program *prog, t_philo *philo)
 		pos[1] = 0;
 	else
 		pos[1] = philo->pos;
-	if (philo->pos % 2 != 0)
+	if (philo->pos % 2 == 0)
 	{
 		swap = pos[0];
 		pos[0] = pos[1];
