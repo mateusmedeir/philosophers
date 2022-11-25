@@ -12,7 +12,6 @@ typedef struct s_philo
 	pthread_t	thread;
 	int			forks;
 	int			pos;
-	int			die;
 	int			times_eat;
 	long long	last;
 	void		*prog;

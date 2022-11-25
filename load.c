@@ -19,7 +19,6 @@ void	ft_philo_load(t_program *prog)
 	{
 		prog->philos[counter].prog = prog;
 		prog->philos[counter].pos = counter + 1;
-		prog->philos[counter].die = 0;
 		prog->philos[counter].last = prog->start;
 		prog->philos[counter].times_eat = 0;
 		prog->philos[counter].forks = 0;

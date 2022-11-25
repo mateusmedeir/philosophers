@@ -7,6 +7,8 @@ void	*ft_philo_actions(void *arg)
 
 	philo = arg;
 	prog = philo->prog;
+	if (philo->pos % 2)
+		usleep(15000);
 	while (1)
 	{
 		if (!ft_eat(prog, philo) || !ft_philo_log(prog, philo, "is sleeping", prog->sleep)

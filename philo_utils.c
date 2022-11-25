@@ -33,8 +33,7 @@ long long	ft_get_time(void)
 
 int	ft_check_died(t_program *prog, t_philo *philo, int *pos)
 {
-	philo->die = ft_get_time() - philo->last;
-	if (philo->die > prog->die)
+	if (ft_get_time() - philo->last > prog->die)
 	{
 		ft_put_forks(prog, philo, pos);
 		pthread_mutex_lock(&prog->mutex_exit);
@@ -54,5 +53,5 @@ void	ft_sleep(int time_sleep)
 
 	time = ft_get_time();
 	while (ft_get_time() - time < time_sleep)
-		usleep(50);
+		usleep(100);
 }
