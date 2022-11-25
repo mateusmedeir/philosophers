@@ -17,10 +17,10 @@ int	ft_check_died(t_program *prog, t_philo *philo, int *pos)
 	if (philo->die > prog->die)
 	{
 		ft_put_forks(prog, philo, pos);
-		pthread_mutex_lock(&prog->mutex);
+		pthread_mutex_lock(&prog->mutex_exit);
 		if (prog->exit == 1)
 		{
-			pthread_mutex_unlock(&prog->mutex);
+			pthread_mutex_unlock(&prog->mutex_exit);
 			return (0);
 		}
 		return (ft_died(prog, philo));

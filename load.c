@@ -32,7 +32,8 @@ void	ft_philo_start(t_program *prog)
 {
 	int	counter;
 
-	pthread_mutex_init(&prog->mutex, NULL);
+	pthread_mutex_init(&prog->mutex_write, NULL);
+	pthread_mutex_init(&prog->mutex_exit, NULL);
 	counter = -1;
 	while (++counter < prog->size)
 		pthread_mutex_init(&prog->mutex_forks[counter], NULL);
@@ -59,5 +60,6 @@ void	ft_philo_end(t_program *prog)
 	while (++counter < prog->size)
 		pthread_mutex_destroy(&prog->mutex_forks[counter]);
 	counter = -1;
-	pthread_mutex_destroy(&prog->mutex);
+	pthread_mutex_destroy(&prog->mutex_exit);
+	pthread_mutex_destroy(&prog->mutex_write);
 }
