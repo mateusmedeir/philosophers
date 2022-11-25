@@ -11,23 +11,6 @@ int	ft_put_forks(t_program *prog, t_philo *philo, int *pos)
 	return (0);
 }
 
-int	ft_check_died(t_program *prog, t_philo *philo, int *pos)
-{
-	philo->die = ft_get_time() - philo->last;
-	if (philo->die > prog->die)
-	{
-		ft_put_forks(prog, philo, pos);
-		pthread_mutex_lock(&prog->mutex_exit);
-		if (prog->exit == 1)
-		{
-			pthread_mutex_unlock(&prog->mutex_exit);
-			return (0);
-		}
-		return (ft_died(prog, philo));
-	}
-	return (1);
-}
-
 int	ft_get_forks(t_program *prog, t_philo *philo, int *pos)
 {
 	while (philo->forks < 2 && ft_check_died(prog, philo, pos))
