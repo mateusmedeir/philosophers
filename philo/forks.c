@@ -13,7 +13,10 @@ int	ft_put_forks(t_program *prog, t_philo *philo, int *pos)
 
 int	ft_get_forks(t_program *prog, t_philo *philo, int *pos)
 {
-	while (philo->forks < 2 && ft_check_died(prog, philo, pos))
+	int	check;
+
+	check = ft_check_died(prog, philo, pos);
+	while (philo->forks < 2 && check)
 	{
 		pthread_mutex_lock(&prog->mutex_forks[pos[philo->forks]]);
 		if (prog->forks[pos[philo->forks]] == 1)
@@ -24,6 +27,7 @@ int	ft_get_forks(t_program *prog, t_philo *philo, int *pos)
 		}
 		else
 			pthread_mutex_unlock(&prog->mutex_forks[pos[philo->forks]]);
+		check = ft_check_died(prog, philo, pos);
 	}
-	return (ft_check_died(prog, philo, pos));
+	return (check);
 }

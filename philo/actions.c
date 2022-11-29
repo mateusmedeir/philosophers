@@ -10,7 +10,7 @@ int	ft_eat(t_program *prog, t_philo *philo)
 	else
 		pos[philo->pos % 2 != 0] = philo->pos;
 	if (!ft_get_forks(prog, philo, pos))
-		return (0);
+		return (ft_died(prog, philo));
 	philo->last = ft_get_time();
 	if (!ft_philo_log(prog, philo, "is eating", prog->eat))
 		return (ft_put_forks(prog, philo, pos));
@@ -22,6 +22,11 @@ int	ft_eat(t_program *prog, t_philo *philo)
 
 int	ft_died(t_program *prog, t_philo *philo)
 {
+	if (prog->exit == 1)
+	{
+		pthread_mutex_unlock(&prog->mutex_exit);
+		return (0);
+	}
 	prog->exit = 1;
 	pthread_mutex_lock(&prog->mutex_write);
 	printf("%lld %d died\n", ft_get_time() - prog->start, philo->pos);

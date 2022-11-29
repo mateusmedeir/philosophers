@@ -31,10 +31,10 @@ int	ft_philo_log(t_program *prog, t_philo *philo, char *str, int time_sleep)
 		pthread_mutex_unlock(&prog->mutex_exit);
 		return (0);
 	}
-	pthread_mutex_unlock(&prog->mutex_exit);
 	pthread_mutex_lock(&prog->mutex_write);
 	printf("%lld %d %s\n", ft_get_time() - prog->start, philo->pos, str);
 	pthread_mutex_unlock(&prog->mutex_write);
+	pthread_mutex_unlock(&prog->mutex_exit);
 	if (time_sleep > 0)
 		ft_sleep(time_sleep);
 	return (1);
@@ -63,12 +63,7 @@ int	ft_check_died(t_program *prog, t_philo *philo, int *pos)
 	{
 		pthread_mutex_lock(&prog->mutex_exit);
 		ft_put_forks(prog, philo, pos);
-		if (prog->exit == 1)
-		{
-			pthread_mutex_unlock(&prog->mutex_exit);
-			return (0);
-		}
-		return (ft_died(prog, philo));
+		return (0);
 	}
 	return (1);
 }
