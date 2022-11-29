@@ -58,7 +58,9 @@ void	ft_philo_end(t_program *prog)
 	counter = -1;
 	while (++counter < prog->size)
 		pthread_mutex_destroy(&prog->mutex_forks[counter]);
-	counter = -1;
 	pthread_mutex_destroy(&prog->mutex_exit);
 	pthread_mutex_destroy(&prog->mutex_write);
+	free(prog->philos);
+	free(prog->mutex_forks);
+	free(prog->forks);
 }

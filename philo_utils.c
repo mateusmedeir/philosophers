@@ -23,6 +23,23 @@ int	ft_atoi(const char *str)
 	return (value * signal);
 }
 
+int	ft_philo_log(t_program *prog, t_philo *philo, char *str, int time_sleep)
+{
+	pthread_mutex_lock(&prog->mutex_exit);
+	if (prog->exit > 0)
+	{
+		pthread_mutex_unlock(&prog->mutex_exit);
+		return (0);
+	}
+	pthread_mutex_unlock(&prog->mutex_exit);
+	pthread_mutex_lock(&prog->mutex_write);
+	printf("%lld %d %s\n", ft_get_time() - prog->start, philo->pos, str);
+	pthread_mutex_unlock(&prog->mutex_write);
+	if (time_sleep > 0)
+		ft_sleep(time_sleep);
+	return (1);
+}
+
 long long	ft_get_time(void)
 {
 	struct timeval  tv;
@@ -44,8 +61,8 @@ int	ft_check_died(t_program *prog, t_philo *philo, int *pos)
 {
 	if (ft_get_time() - philo->last > prog->die)
 	{
-		ft_put_forks(prog, philo, pos);
 		pthread_mutex_lock(&prog->mutex_exit);
+		ft_put_forks(prog, philo, pos);
 		if (prog->exit == 1)
 		{
 			pthread_mutex_unlock(&prog->mutex_exit);

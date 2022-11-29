@@ -33,19 +33,20 @@ typedef struct s_program
 	long long		start;
 }			t_program;
 
-int		ft_atoi(const char *str);
+int			ft_atoi(const char *str);
 void		ft_philo_load(t_program *prog);
 void		ft_philo_start(t_program *prog);
 void		ft_philo_end(t_program *prog);
 void		*ft_philo_actions(void *arg);
 void		ft_philo(t_program *prog);
-int		ft_put_forks(t_program *prog, t_philo *philo, int *pos);
+int			ft_put_forks(t_program *prog, t_philo *philo, int *pos);
 int     	ft_check_died(t_program *prog, t_philo *philo, int *pos);
-int		ft_get_forks(t_program *prog, t_philo *philo, int *pos);
-int		ft_philo_log(t_program *prog,t_philo *philo, char *str, int time_sleep);
-int		ft_eat(t_program *prog,t_philo *philo);
-int		ft_died(t_program *prog, t_philo *philo);
+int			ft_get_forks(t_program *prog, t_philo *philo, int *pos);
+int			ft_philo_log(t_program *prog,t_philo *philo, char *str, int time_sleep);
+int			ft_eat(t_program *prog,t_philo *philo);
+int			ft_died(t_program *prog, t_philo *philo);
 long long	ft_get_time(void);
 void		ft_sleep(int time_sleep);
+void		ft_exit(t_program *prog);
 
 #endif
