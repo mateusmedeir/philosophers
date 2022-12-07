@@ -31,13 +31,6 @@ int	main(int argc, char *argv[])
 
 	if (argc == 5 || argc == 6)
 	{
-		if (argv[1] <= 0 || argv[2] < 0 || argv[3] < 0 || argv[4] < 0)
-			return (0);
-		if (argc == 6)
-		{
-			if (argv[5] <= 0)
-				return (0);
-		}
 		prog.size = ft_atoi(argv[1]);
 		prog.die = ft_atoi(argv[2]);
 		prog.eat = ft_atoi(argv[3]);
@@ -46,6 +39,13 @@ int	main(int argc, char *argv[])
 			prog.must_eat = ft_atoi(argv[5]);
 		else
 			prog.must_eat = -1;
+		if (prog.size <= 0 || prog.die < 0 || prog.eat < 0 || prog.sleep < 0)
+			return (0);
+		if (argc == 6)
+		{
+			if (prog.must_eat <= 0)
+				return (0);
+		}
 		ft_philo(&prog);
 	}
 }
